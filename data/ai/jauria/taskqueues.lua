@@ -9,55 +9,19 @@ local pack_of_arc = {
 	"arc",
 	"arc",
 	"arc",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"enk3",
-	"enk3",
-	"enk3",
-	"enk3",
-	"enk3",
-	"enk3",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"cnm1",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
-	"drk2",
+}
+
+
+local pack_of_bit0 = {
+	"bit0",
 }
 
 local pack_of_cnm1 = {
+	"cnm1",
+	"cnm1",
+	"cnm1",
+	"cnm1",
+	"cnm1",
 	"cnm1",
 	"cnm1",
 	"cnm1",
@@ -71,13 +35,37 @@ local pack_of_drk2 = {
 	"drk2",
 	"drk2",
 	"drk2",
+	"drk2",
+	"drk2",
+	"drk2",
+	"drk2",
+	"drk2",
 }
 
 local pack_of_enk3 = {
 	"enk3",
 	"enk3",
+	"enk3",
+	"enk3",
+	"enk3",
+	"enk3",
 }
 
 taskqueues = {
-	fabricaporreton = pack_of_arc
+	fabricaporreton = (
+		function()
+			local r = math.random(4,4)
+			if r == 0 then
+				return pack_of_bit0
+			elseif r == 1 then
+				return pack_of_cnm1
+			elseif r == 2 then
+				return pack_of_drk2
+			elseif r == 3 then
+				return pack_of_enk3
+			else
+				return pack_of_arc
+			end
+		end
+	),
 }
