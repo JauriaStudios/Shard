@@ -25,17 +25,20 @@ function UnitCounterBehaviour:Init()
 
 end
 
+
 function UnitCounterBehaviour:UnitCreated(unit)
-	
-	if IsWorker(unit) then
-	
-		EchoDebug("Got a worker")
-		self.workers = self.workers + 1
-		
-		if self.workers < 4 then
-			self.reclaimers = self.reclaimers + 1
-		else
-			self.assistants = self.assistants + 1
+
+	if unit ~= nil then
+		if IsWorker(unit) then
+			EchoDebug("Got a worker")
+			self.workers = self.workers + 1
+			
+			if self.workers < 4 then
+				self.reclaimers = self.reclaimers + 1
+			else
+				self.assistants = self.assistants + 1
+			end
+		end
 	end
 end
 
