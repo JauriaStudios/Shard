@@ -2,6 +2,8 @@ require "unitlist"
 
 require "utils"
 
+require "autoreclaimbehaviour"
+
 UnitCounterBehaviour = class(Behaviour)
 
 local DebugEnabled = true
@@ -13,7 +15,6 @@ local function EchoDebug(inStr)
 end
 
 function UnitCounterBehaviour:Init()
-	EchoDebug("UNIT COUNTER INIT")
 	
 	self.workers = 0
 	self.reclaimers = 0
@@ -26,20 +27,21 @@ function UnitCounterBehaviour:Init()
 end
 
 
-function UnitCounterBehaviour:UnitCreated(unit)
-
-	EchoDebug("Team ID: " .. game:GetTeamID())
-	EchoDebug("Unit Team ID: " .. unit:Team())
+function UnitCounterBehaviour:UnitBuilt(unit)
+	
 	if unit ~= nil then
-		EchoDebug("Unit: " .. unit:Internal():Name())
 		if IsWorker(unit) then
 			EchoDebug("Got a worker")
 			self.workers = self.workers + 1
 			
-			if self.workers < 4 then
+			if self.workers < 5 then
+				EchoDebug("reclaimer")
 				self.reclaimers = self.reclaimers + 1
+				
 			else
-				self.assistants = self.assistants + 1
+				EchoDebug("assistant")
+				self.assistans = self.assistans + 1
+				
 			end
 		end
 	end
