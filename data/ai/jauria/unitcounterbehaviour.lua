@@ -28,7 +28,10 @@ end
 
 function UnitCounterBehaviour:UnitCreated(unit)
 
+	EchoDebug("Team ID: " .. game:GetTeamID())
+	EchoDebug("Unit Team ID: " .. unit:Team())
 	if unit ~= nil then
+		EchoDebug("Unit: " .. unit:Internal():Name())
 		if IsWorker(unit) then
 			EchoDebug("Got a worker")
 			self.workers = self.workers + 1
