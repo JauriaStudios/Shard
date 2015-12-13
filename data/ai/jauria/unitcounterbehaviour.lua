@@ -2,8 +2,6 @@ require "unitlist"
 
 require "utils"
 
-require "autoreclaimbehaviour"
-
 UnitCounterBehaviour = class(Behaviour)
 
 local DebugEnabled = true
@@ -38,9 +36,19 @@ function UnitCounterBehaviour:UnitBuilt(unit)
 				EchoDebug("reclaimer")
 				self.reclaimers = self.reclaimers + 1
 				
+				t = AutoReclaimBehaviour()
+				t:SetUnit(unit)
+				t:Init()
+				unit:AddBehaviour(t)
+				
 			else
 				EchoDebug("assistant")
 				self.assistans = self.assistans + 1
+				
+				t = AssistBehaviour()
+				t:SetUnit(unit)
+				t:Init()
+				unit:AddBehaviour(t)
 				
 			end
 		end

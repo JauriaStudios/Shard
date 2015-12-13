@@ -7,6 +7,7 @@ require "utils"
 
 require "unitcounterbehaviour"
 require "autoreclaimbehaviour"
+require "assistbehaviour"
 
 behaviours = {
 	fabricaporreton = {
@@ -21,8 +22,9 @@ function defaultBehaviours(unit)
 	u = unit:Internal()
 	if IsAttacker(unit) then
 		table.insert(b, AttackerBehaviour)
-	elseif IsWorker(unit) then
-		table.insert(b, AutoReclaimBehaviour)
 	end
+	--elseif IsWorker(unit) then
+	--	table.insert(b, AutoReclaimBehaviour)
+	--end
 	return b
 end
