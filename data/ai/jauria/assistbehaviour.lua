@@ -12,33 +12,13 @@ local CMD_GUARD = 25
 local CMD_PATROL = 15
 
 function AssistBehaviour:Init()
+	EchoDebug("INIT ASSIST")
 	self.active = false
-	self.assisting = false
-	
-	
-	local ucount = game:GetFriendlies()
-	
-	for i, funit in pairs(ucount) do
-		if funit:Name() == "fabricaporreton" then
-			EchoDebug("FACTORY")
-			local factory_exist = true
-		end
-	end
-	
-	if factory_exist == true then
-		if self.assisting == false then
-			EchoDebug("Go for it")
-			local position = funit:Internal():GetPosition()
-			self.unit:Internal():ExecuteCustomCommand(CMD_GUARD, position)
-			self.assisting = true
-		end
-	end
-	
-	
+	self.factory_exist = false
+	self.factory = nil
 end
 
-function AssistBehaviour:UnitCreated(unit)
-	
+function AssistBehaviour:UnitBuilt(unit)
 end
 
 function AssistBehaviour:UnitIdle(unit)
@@ -51,6 +31,31 @@ function AssistBehaviour:UnitIdle(unit)
 end
 
 function AssistBehaviour:Update()
+	
+	local f = game:Frame()
+	if (f % 180) == 0 then
+		local ucount = game:GetFriendlies()
+		
+		for i, funit in pairs(ucount) do
+			if funit:Name() == "fabricaporreton" then
+				self.factory = funit
+				EchoDebug("FACTORY")
+				self.factory_exist = true
+			end
+		end
+		
+		if self.factory_exist == true then
+			EchoDebug("Go for it")
+			local position = self.factory:GetPosition()
+			
+			local floats = api.vectorFloat()
+			floats:push_back(position.x)
+			floats:push_back(position.y)
+			floats:push_back(position.z)
+			
+			self.unit:Internal():ExecuteCustomCommand(CMD_PATROL, floats)
+		end
+	end
 end
 
 function AssistBehaviour:Activate()
