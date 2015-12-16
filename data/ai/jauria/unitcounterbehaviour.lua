@@ -32,7 +32,7 @@ function UnitCounterBehaviour:UnitBuilt(unit)
 			EchoDebug("Got a worker")
 			self.workers = self.workers + 1
 			
-			if self.workers < 5 then
+			if self.workers <= 4 then
 				EchoDebug("reclaimer")
 				self.reclaimers = self.reclaimers + 1
 				
@@ -41,7 +41,7 @@ function UnitCounterBehaviour:UnitBuilt(unit)
 				t:Init()
 				unit:AddBehaviour(t)
 				
-			else
+			elseif self.workers >= 5 and self.workers <= 6 then
 				EchoDebug("assistant")
 				self.assistans = self.assistans + 1
 				
@@ -49,7 +49,8 @@ function UnitCounterBehaviour:UnitBuilt(unit)
 				t:SetUnit(unit)
 				t:Init()
 				unit:AddBehaviour(t)
-				
+			else
+				EchoDebug("done")
 			end
 		end
 	end
